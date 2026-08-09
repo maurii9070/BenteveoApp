@@ -24,12 +24,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 // Configura los permisos de acceso a las rutas
+                // TODO: Cambiar a .authenticated() cuando se implemente JWT auth
                 .authorizeHttpRequests(auth -> auth
-                        // Libera todas las rutas bajo /api/v1/auth/** (Registro, Login, etc.)
-                        .requestMatchers("/api/v1/auth/**").permitAll()
-
-                        // Todo lo demás requiere estar autenticado
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .build();
     }
