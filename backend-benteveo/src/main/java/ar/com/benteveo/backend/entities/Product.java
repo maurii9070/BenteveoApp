@@ -90,7 +90,8 @@ public class Product {
     private List<ProductPhoto> photos;
 
     @OneToMany(mappedBy = "product")
-    private List<Reservation> reservations;
+    @Builder.Default
+    private List<Reservation> reservations = List.of();
 
 
 }

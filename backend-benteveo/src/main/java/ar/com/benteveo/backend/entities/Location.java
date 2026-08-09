@@ -43,7 +43,8 @@ public class Location {
     private String country = "Argentina";
 
     @OneToMany(mappedBy = "location")
-    private List<Product> products;
+    @Builder.Default
+    private List<Product> products = List.of();
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
