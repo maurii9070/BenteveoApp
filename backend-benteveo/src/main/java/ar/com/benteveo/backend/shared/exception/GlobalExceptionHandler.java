@@ -46,4 +46,11 @@ public class GlobalExceptionHandler {
     public ApiResponse<Void> handleGlobalException(Exception ex) {
         return ApiResponse.error("Ocurrió un error interno en el servidor. Intente más tarde.");
     }
+
+    // Captura errores de login (Credenciales incorrectas) -> HTTP 401 Unauthorized
+    @ExceptionHandler(InvalidCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiResponse<Void> handleInvalidCredentials(InvalidCredentialsException ex) {
+        return ApiResponse.error(ex.getMessage());
+    }
 }
