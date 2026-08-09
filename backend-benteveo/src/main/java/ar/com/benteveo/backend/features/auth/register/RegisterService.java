@@ -35,7 +35,8 @@ public class RegisterService {
         var user = User.builder()
                        .email(request.email())
                        .password(passwordEncoder.encode(request.password()))
-                       .name(request.name())
+                       .firstName(request.firstName())
+                       .lastName(request.lastName())
                        .dni(request.dni())
                        .roles(List.of(Role.USER))
                        .isActive(true)
@@ -47,7 +48,8 @@ public class RegisterService {
         return new RegisterResponse(
                 savedUser.getId(),
                 savedUser.getEmail(),
-                savedUser.getName()
+                savedUser.getFirstName(),
+                savedUser.getLastName()
         );
     }
 }

@@ -14,7 +14,10 @@ public record RegisterRequest(
         String password,
 
         @NotBlank(message = "El nombre es obligatorio")
-        String name,
+        String firstName,
+
+        @NotBlank(message = "El apellido es obligatorio")
+        String lastName,
 
         @NotBlank(message = "El DNI es obligatorio")
         String dni
