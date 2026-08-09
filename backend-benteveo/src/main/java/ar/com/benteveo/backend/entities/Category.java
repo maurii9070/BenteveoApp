@@ -32,7 +32,8 @@ public class Category {
     private String slug;
 
     @OneToMany(mappedBy = "category")
-    private List<Product> products;
+    @Builder.Default
+    private List<Product> products = List.of();
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
