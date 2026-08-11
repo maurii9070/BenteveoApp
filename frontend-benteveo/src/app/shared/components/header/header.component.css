@@ -1,0 +1,93 @@
+.header {
+  background-color: #111827;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: -0.025em;
+}
+
+.brand:hover {
+  opacity: 0.9;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #d1d5db;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.nav-link:hover {
+  color: #fff;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-outline {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #d1d5db;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid #4b5563;
+  border-radius: 0.5rem;
+  transition: all 0.15s ease;
+}
+
+.btn-outline:hover {
+  color: #fff;
+  border-color: #9ca3af;
+}
+
+.btn-primary {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  background-color: #4f46e5;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease;
+}
+
+.btn-primary:hover {
+  background-color: #4338ca;
+}
+
+@media (max-width: 640px) {
+  .nav {
+    display: none;
+  }
+
+  .header-actions .btn-outline {
+    display: none;
+  }
+}
