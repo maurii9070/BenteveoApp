@@ -11,26 +11,27 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "zones")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Category {
+public class Zone {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
-    private String slug;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id", nullable = false)
+    private City city;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "zone")
     @Builder.Default
-    private List<Product> products = List.of();
+    private List<Profile> profiles = List.of();
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
