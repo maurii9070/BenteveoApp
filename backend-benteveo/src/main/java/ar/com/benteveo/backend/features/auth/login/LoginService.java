@@ -33,7 +33,7 @@ public class LoginService {
         }
 
         // 3. Validar si la cuenta está activa
-        if (!user.getIsActive()) {
+        if (Boolean.FALSE.equals(user.getIsActive())) {
             throw new InvalidCredentialsException();
         }
 
