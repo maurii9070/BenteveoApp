@@ -67,6 +67,10 @@ public class Profile {
     @JoinColumn(name = "zone_id", nullable = false)
     private Zone zone;
 
+    @Column(name = "is_complete", nullable = false)
+    @Builder.Default
+    private Boolean isComplete = false;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
