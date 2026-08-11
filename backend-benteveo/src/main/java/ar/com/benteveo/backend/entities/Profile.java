@@ -44,6 +44,29 @@ public class Profile {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
+    // --- Campos de dirección ---
+    @Column(name = "street", nullable = false)
+    private String street;
+
+    @Column(name = "street_number", nullable = false)
+    private String streetNumber;
+
+    @Column(name = "floor", length = 10)
+    private String floor;
+
+    @Column(name = "apartment", length = 10)
+    private String apartment;
+
+    @Column(name = "postal_code", length = 10)
+    private String postalCode;
+
+    @Column(name = "extra_info", columnDefinition = "TEXT")
+    private String extraInfo;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "zone_id", nullable = false)
+    private Zone zone;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
