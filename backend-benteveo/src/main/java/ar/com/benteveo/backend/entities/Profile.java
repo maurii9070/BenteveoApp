@@ -31,14 +31,8 @@ public class Profile {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(length = 20)
-    private String phone;
-
     @Column(name = "avatar_url")
     private String avatarUrl;
-
-    @Column(columnDefinition = "TEXT")
-    private String bio;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
@@ -57,15 +51,13 @@ public class Profile {
     @Column(name = "apartment", length = 10)
     private String apartment;
 
-    @Column(name = "postal_code", length = 10)
-    private String postalCode;
-
-    @Column(name = "extra_info", columnDefinition = "TEXT")
-    private String extraInfo;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "zone_id", nullable = false)
     private Zone zone;
+
+    @Column(name = "is_complete", nullable = false)
+    @Builder.Default
+    private Boolean isComplete = false;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
