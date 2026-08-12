@@ -9,17 +9,18 @@ export const routes: Routes = [
   {
     path: 'register',
     loadComponent: () =>
-      import('./features/auth/register/register.component').then(
-        (m) => m.RegisterComponent,
-      ),
+      import('./features/auth/register/register.component').then((m) => m.RegisterComponent),
   },
   {
     path: '',
     loadComponent: () =>
-      import('./shared/components/layout/layout.component').then(
-        (m) => m.LayoutComponent,
-      ),
+      import('./shared/components/layout/layout.component').then((m) => m.LayoutComponent),
     children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () => import('./features/home/home.component').then((m) => m.HomeComponent),
+      },
       {
         path: 'reservations',
         loadComponent: () =>
@@ -31,6 +32,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'login',
+    redirectTo: '',
   },
 ];
