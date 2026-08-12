@@ -6,7 +6,6 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
   selector: 'app-register',
   imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
 })
 export class RegisterComponent {
   private readonly fb = inject(FormBuilder);
