@@ -1,11 +1,18 @@
-<div class="relative flex h-screen w-full flex-col overflow-hidden md:flex-row">
+<div class="relative flex min-h-dvh w-full flex-col md:flex-row">
   <div
-    class="relative z-10 order-first flex min-h-screen w-full flex-col items-center justify-center bg-surface px-8 py-8 md:order-none md:w-[45%] md:flex-none"
+    class="relative z-10 order-first flex min-h-dvh w-full flex-col items-center justify-center bg-surface px-8 py-8 md:order-0 md:w-[45%] md:flex-none"
   >
-    <div class="w-full max-w-[380px] animate-card-appear rounded-xl bg-white p-10 shadow-sm">
+    <a
+      routerLink="/"
+      class="absolute left-8 top-8 flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
+    >
+      <span aria-hidden="true">←</span>
+      Volver al inicio
+    </a>
+    <div class="w-full max-w-95 animate-card-appear rounded-xl bg-white p-10 shadow-sm">
       <div class="mb-8">
         <h1 class="mb-2 text-[1.75rem] font-bold text-brand">Iniciar Sesión</h1>
-        <p class="text-sm text-gray-500">Accedé a tu cuenta de Benteveo</p>
+        <p class="text-sm text-gray-600">Accedé a tu cuenta de Benteveo</p>
       </div>
 
       <form class="flex flex-col gap-5" (submit)="onSubmit(); $event.preventDefault()">
@@ -17,11 +24,13 @@
             placeholder="tu@email.com"
             autocomplete="email"
             [formField]="loginForm.email"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
             [class.input-error]="loginForm.email().touched() && loginForm.email().errors().length"
           />
           @if (loginForm.email().touched() && loginForm.email().errors().length) {
-            <span class="text-xs text-error">{{ loginForm.email().errors()[0].message }}</span>
+            <span class="text-xs text-error-strong">{{
+              loginForm.email().errors()[0].message
+            }}</span>
           }
         </div>
 
@@ -33,30 +42,44 @@
             placeholder="••••••••"
             autocomplete="current-password"
             [formField]="loginForm.password"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-            [class.input-error]="loginForm.password().touched() && loginForm.password().errors().length"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            [class.input-error]="
+              loginForm.password().touched() && loginForm.password().errors().length
+            "
           />
           @if (loginForm.password().touched() && loginForm.password().errors().length) {
-            <span class="text-xs text-error">{{ loginForm.password().errors()[0].message }}</span>
+            <span class="text-xs text-error-strong">{{
+              loginForm.password().errors()[0].message
+            }}</span>
           }
         </div>
 
         <div class="flex items-center justify-between">
-          <label class="flex cursor-pointer items-center gap-1.5 text-[0.8125rem] text-gray-500">
+          <label class="flex cursor-pointer items-center gap-1.5 text-[0.8125rem] text-gray-600">
             <input type="checkbox" class="accent-primary" />
             <span>Recordarme</span>
           </label>
-          <a href="#" class="text-[0.8125rem] text-primary no-underline hover:underline">¿Olvidaste tu contraseña?</a>
+          <a href="#" class="text-[0.8125rem] text-primary-text no-underline hover:underline"
+            >¿Olvidaste tu contraseña?</a
+          >
         </div>
 
-        <button type="submit" class="cursor-pointer rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-hover">
+        <button
+          type="submit"
+          class="cursor-pointer rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-stone-900 transition hover:bg-primary-hover active:scale-[0.98]"
+        >
           Ingresar
         </button>
       </form>
 
       <div class="mt-6 border-t border-gray-200 pt-6 text-center">
-        <p class="text-sm text-gray-500">
-          ¿No tenés cuenta? <a routerLink="/register" class="font-medium text-primary no-underline hover:underline">Registrate</a>
+        <p class="text-sm text-gray-600">
+          ¿No tenés cuenta?
+          <a
+            routerLink="/register"
+            class="font-medium text-primary-text no-underline hover:underline"
+            >Registrate</a
+          >
         </p>
       </div>
     </div>
@@ -70,7 +93,7 @@
         <span class="text-3xl font-bold text-primary">B</span>
       </div>
       <h2 class="mb-2 text-2xl font-bold">Bienvenido a Benteveo</h2>
-      <p class="text-sm text-brand-muted">Tu evento, nuestra pasión.</p>
+      <p class="text-sm text-brand-muted">Alquilá lo que necesitás, publicá lo que no usás.</p>
     </div>
   </div>
 </div>

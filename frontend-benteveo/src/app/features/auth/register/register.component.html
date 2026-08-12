@@ -1,13 +1,18 @@
-<div class="relative flex h-screen w-full flex-col overflow-hidden md:flex-row">
+<div class="relative flex min-h-dvh w-full flex-col md:flex-row">
   <div
-    class="relative z-10 order-first flex min-h-screen w-full flex-col items-center justify-center bg-surface px-8 py-8 md:order-none md:w-[45%] md:flex-none"
+    class="relative z-10 order-first flex min-h-dvh w-full flex-col items-center justify-center bg-surface px-8 py-8 md:order-0 md:w-[45%] md:flex-none"
   >
-    <div
-      class="mb-8 w-full max-w-[440px] animate-card-appear rounded-xl bg-white p-10 shadow-sm"
+    <a
+      routerLink="/"
+      class="absolute left-8 top-8 flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
     >
+      <span aria-hidden="true">←</span>
+      Volver al inicio
+    </a>
+    <div class="mb-8 w-full max-w-110 animate-card-appear rounded-xl bg-white p-10 shadow-sm">
       <div class="mb-8">
         <h1 class="mb-2 text-[1.75rem] font-bold text-brand">Crear Cuenta</h1>
-        <p class="text-sm text-gray-500">Registrate en Benteveo</p>
+        <p class="text-sm text-gray-600">Registrate en Benteveo</p>
       </div>
 
       <form class="flex flex-col gap-5" (submit)="onSubmit(); $event.preventDefault()">
@@ -20,11 +25,15 @@
               placeholder="Juan"
               autocomplete="given-name"
               [formField]="registerForm.firstName"
-              class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-              [class.input-error]="registerForm.firstName().touched() && registerForm.firstName().errors().length"
+              class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+              [class.input-error]="
+                registerForm.firstName().touched() && registerForm.firstName().errors().length
+              "
             />
             @if (registerForm.firstName().touched() && registerForm.firstName().errors().length) {
-              <span class="text-xs text-error">{{ registerForm.firstName().errors()[0].message }}</span>
+              <span class="text-xs text-error-strong">{{
+                registerForm.firstName().errors()[0].message
+              }}</span>
             }
           </div>
 
@@ -36,11 +45,15 @@
               placeholder="Pérez"
               autocomplete="family-name"
               [formField]="registerForm.lastName"
-              class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-              [class.input-error]="registerForm.lastName().touched() && registerForm.lastName().errors().length"
+              class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+              [class.input-error]="
+                registerForm.lastName().touched() && registerForm.lastName().errors().length
+              "
             />
             @if (registerForm.lastName().touched() && registerForm.lastName().errors().length) {
-              <span class="text-xs text-error">{{ registerForm.lastName().errors()[0].message }}</span>
+              <span class="text-xs text-error-strong">{{
+                registerForm.lastName().errors()[0].message
+              }}</span>
             }
           </div>
         </div>
@@ -53,11 +66,15 @@
             placeholder="tu@email.com"
             autocomplete="email"
             [formField]="registerForm.email"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-            [class.input-error]="registerForm.email().touched() && registerForm.email().errors().length"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            [class.input-error]="
+              registerForm.email().touched() && registerForm.email().errors().length
+            "
           />
           @if (registerForm.email().touched() && registerForm.email().errors().length) {
-            <span class="text-xs text-error">{{ registerForm.email().errors()[0].message }}</span>
+            <span class="text-xs text-error-strong">{{
+              registerForm.email().errors()[0].message
+            }}</span>
           }
         </div>
 
@@ -68,11 +85,13 @@
             id="dni"
             placeholder="12.345.678"
             [formField]="registerForm.dni"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
             [class.input-error]="registerForm.dni().touched() && registerForm.dni().errors().length"
           />
           @if (registerForm.dni().touched() && registerForm.dni().errors().length) {
-            <span class="text-xs text-error">{{ registerForm.dni().errors()[0].message }}</span>
+            <span class="text-xs text-error-strong">{{
+              registerForm.dni().errors()[0].message
+            }}</span>
           }
         </div>
 
@@ -84,38 +103,58 @@
             placeholder="••••••••"
             autocomplete="new-password"
             [formField]="registerForm.password"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-            [class.input-error]="registerForm.password().touched() && registerForm.password().errors().length"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            [class.input-error]="
+              registerForm.password().touched() && registerForm.password().errors().length
+            "
           />
           @if (registerForm.password().touched() && registerForm.password().errors().length) {
-            <span class="text-xs text-error">{{ registerForm.password().errors()[0].message }}</span>
+            <span class="text-xs text-error-strong">{{
+              registerForm.password().errors()[0].message
+            }}</span>
           }
         </div>
 
         <div class="flex flex-col gap-1.5">
-          <label for="confirmPassword" class="text-sm font-medium text-brand">Confirmar contraseña</label>
+          <label for="confirmPassword" class="text-sm font-medium text-brand"
+            >Confirmar contraseña</label
+          >
           <input
             type="password"
             id="confirmPassword"
             placeholder="••••••••"
             autocomplete="new-password"
             [formField]="registerForm.confirmPassword"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-            [class.input-error]="registerForm.confirmPassword().touched() && registerForm.confirmPassword().errors().length"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            [class.input-error]="
+              registerForm.confirmPassword().touched() &&
+              registerForm.confirmPassword().errors().length
+            "
           />
-          @if (registerForm.confirmPassword().touched() && registerForm.confirmPassword().errors().length) {
-            <span class="text-xs text-error">{{ registerForm.confirmPassword().errors()[0].message }}</span>
+          @if (
+            registerForm.confirmPassword().touched() &&
+            registerForm.confirmPassword().errors().length
+          ) {
+            <span class="text-xs text-error-strong">{{
+              registerForm.confirmPassword().errors()[0].message
+            }}</span>
           }
         </div>
 
-        <button type="submit" class="cursor-pointer rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-hover">
+        <button
+          type="submit"
+          class="cursor-pointer rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-stone-900 transition hover:bg-primary-hover active:scale-[0.98]"
+        >
           Crear Cuenta
         </button>
       </form>
 
       <div class="mt-6 border-t border-gray-200 pt-6 text-center">
-        <p class="text-sm text-gray-500">
-          ¿Ya tenés cuenta? <a routerLink="/login" class="font-medium text-primary no-underline hover:underline">Iniciar Sesión</a>
+        <p class="text-sm text-gray-600">
+          ¿Ya tenés cuenta?
+          <a routerLink="/login" class="font-medium text-primary-text no-underline hover:underline"
+            >Iniciar Sesión</a
+          >
         </p>
       </div>
     </div>
@@ -129,7 +168,7 @@
         <span class="text-3xl font-bold text-primary">B</span>
       </div>
       <h2 class="mb-2 text-2xl font-bold">Sé parte de Benteveo</h2>
-      <p class="text-sm text-brand-muted">Tu evento, nuestra pasión.</p>
+      <p class="text-sm text-brand-muted">Alquilá lo que necesitás, publicá lo que no usás.</p>
     </div>
   </div>
 </div>

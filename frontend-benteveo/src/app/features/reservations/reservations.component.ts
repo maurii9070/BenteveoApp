@@ -3,10 +3,12 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-reservations',
   template: `
-    <div style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
-      <h1 style="font-size: 1.5rem; font-weight: 700; color: #111827;">Reservas</h1>
-      <p style="color: #6b7280; margin-top: 0.5rem;">Próximamente...</p>
-    </div>
+    <section class="mx-auto max-w-7xl px-6 py-16">
+      <h1 class="text-2xl font-bold tracking-tight text-dark">Reservas</h1>
+      <p class="mt-2 max-w-[65ch] text-gray-600">
+        Próximamente vas a poder gestionar tus alquileres y reservas acá.
+      </p>
+    </section>
   `,
 })
 export class ReservationsComponent {}

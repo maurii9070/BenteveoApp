@@ -38,11 +38,17 @@
   font-weight: 500;
   color: #d1d5db;
   text-decoration: none;
+  border-radius: 0.375rem;
   transition: color 0.15s ease;
 }
 
 .nav-link:hover {
   color: #fff;
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .header-actions {
@@ -67,19 +73,33 @@
   border-color: #9ca3af;
 }
 
+.btn-outline:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 .btn-primary {
   font-size: 0.875rem;
-  font-weight: 500;
-  color: #fff;
+  font-weight: 600;
+  color: #1c1917;
   text-decoration: none;
   padding: 0.5rem 1rem;
-  background-color: #4f46e5;
+  background-color: var(--color-primary);
   border-radius: 0.5rem;
   transition: background-color 0.15s ease;
 }
 
 .btn-primary:hover {
-  background-color: #4338ca;
+  background-color: var(--color-primary-hover);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 @media (max-width: 640px) {

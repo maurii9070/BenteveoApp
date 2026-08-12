@@ -1,0 +1,122 @@
+<section class="bg-surface">
+  <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 md:grid-cols-2 md:py-24">
+    <div>
+      <h1 class="text-4xl font-bold tracking-tighter text-brand md:text-5xl">
+        Alquilá lo que necesitás, publicá lo que no usás.
+      </h1>
+      <p class="mt-4 max-w-[65ch] text-lg text-brand-muted">
+        Conectamos a quién tiene algo guardado con quién lo necesita. Alquilá por día, semana o mes.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          routerLink="/register"
+          class="cursor-pointer rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-stone-900 transition hover:bg-primary-hover active:scale-[0.98]"
+        >
+          Registrarse
+        </a>
+        <a
+          routerLink="/login"
+          class="cursor-pointer rounded-lg border border-stone-300 bg-white/60 px-5 py-3 text-sm font-semibold text-brand transition hover:border-stone-400 hover:bg-white active:scale-[0.98]"
+        >
+          Iniciar sesión
+        </a>
+      </div>
+    </div>
+
+    <img
+      src="https://picsum.photos/seed/benteveo-alquiler/1200/900"
+      alt="Productos en alquiler en Benteveo"
+      class="aspect-[4/3] w-full rounded-2xl object-cover shadow-sm"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+    <h2 class="text-3xl font-bold tracking-tighter text-brand">Alquilá de todo</h2>
+    <p class="mt-3 max-w-[65ch] text-brand-muted">
+      Herramientas, autos, maquinaria y lo que se te ocurra. Todo en un solo lugar.
+    </p>
+
+    <div class="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4">
+      @for (category of categories; track category) {
+        <div class="rounded-lg border border-stone-200 bg-surface px-4 py-4 font-medium text-dark">
+          {{ category }}
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="bg-surface">
+  <div class="mx-auto max-w-7xl px-6 py-16 md:py-24">
+    <h2 class="text-3xl font-bold tracking-tighter text-brand">Así funciona</h2>
+    <p class="mt-3 max-w-[65ch] text-brand-muted">
+      Un solo lugar para alquilar lo que te falta y publicar lo que no usás.
+    </p>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2">
+      <div class="rounded-xl border border-stone-200/70 bg-white p-6">
+        <h3 class="text-lg font-semibold text-dark">Para alquilar</h3>
+        <ul class="mt-4 flex flex-col gap-4">
+          <li>
+            <p class="font-medium text-dark">Buscá por categoría</p>
+            <p class="mt-0.5 text-sm text-brand-muted">
+              Encontrá lo que necesitás cerca tuyo, de autos a herramientas.
+            </p>
+          </li>
+          <li>
+            <p class="font-medium text-dark">Elegí tu plazo</p>
+            <p class="mt-0.5 text-sm text-brand-muted">
+              Alquilá por día, semana o mes, el tiempo que te sirva.
+            </p>
+          </li>
+          <li>
+            <p class="font-medium text-dark">Coordiná y aboná</p>
+            <p class="mt-0.5 text-sm text-brand-muted">
+              Acordá el encuentro con el dueño y aboná de forma simple.
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="rounded-xl border border-stone-200/70 bg-white p-6">
+        <h3 class="text-lg font-semibold text-dark">Para publicar</h3>
+        <ul class="mt-4 flex flex-col gap-4">
+          <li>
+            <p class="font-medium text-dark">Publicá tu aviso</p>
+            <p class="mt-0.5 text-sm text-brand-muted">
+              Subí fotos, precio y disponibilidad en minutos.
+            </p>
+          </li>
+          <li>
+            <p class="font-medium text-dark">Definí precio y plazo</p>
+            <p class="mt-0.5 text-sm text-brand-muted">
+              Tarifas por día, semana o mes, como prefieras.
+            </p>
+          </li>
+          <li>
+            <p class="font-medium text-dark">Coordiná y cobrá</p>
+            <p class="mt-0.5 text-sm text-brand-muted">
+              Organizá la entrega con el inquilino y cobrá.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-primary">
+  <div class="mx-auto flex max-w-7xl flex-col items-center gap-6 px-6 py-16 text-center md:py-20">
+    <h2 class="text-3xl font-bold tracking-tighter text-brand">¿Listo para alquilar o publicar?</h2>
+    <a
+      routerLink="/register"
+      class="cursor-pointer rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-muted active:scale-[0.98]"
+    >
+      Registrarse
+    </a>
+  </div>
+</section>

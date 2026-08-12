@@ -2,25 +2,24 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: 'login',
+    loadComponent: () =>
+      import('./features/auth/login/login.component').then((m) => m.LoginComponent),
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./features/auth/register/register.component').then((m) => m.RegisterComponent),
+  },
+  {
     path: '',
     loadComponent: () =>
-      import('./shared/components/layout/layout.component').then(
-        (m) => m.LayoutComponent,
-      ),
+      import('./shared/components/layout/layout.component').then((m) => m.LayoutComponent),
     children: [
       {
-        path: 'login',
-        loadComponent: () =>
-          import('./features/auth/login/login.component').then(
-            (m) => m.LoginComponent,
-          ),
-      },
-      {
-        path: 'register',
-        loadComponent: () =>
-          import('./features/auth/register/register.component').then(
-            (m) => m.RegisterComponent,
-          ),
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () => import('./features/home/home.component').then((m) => m.HomeComponent),
       },
       {
         path: 'reservations',
@@ -29,15 +28,10 @@ export const routes: Routes = [
             (m) => m.ReservationsComponent,
           ),
       },
-      {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full',
-      },
     ],
   },
   {
     path: '**',
-    redirectTo: 'login',
+    redirectTo: '',
   },
 ];
