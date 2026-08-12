@@ -53,4 +53,18 @@ public class GlobalExceptionHandler {
     public ApiResponse<Void> handleInvalidCredentials(InvalidCredentialsException ex) {
         return ApiResponse.error(ex.getMessage());
     }
+
+    // Captura errores de validación de archivos (tamaño, tipo MIME) -> HTTP 400 Bad Request
+    @ExceptionHandler(FileValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResponse<Void> handleFileValidation(FileValidationException ex) {
+        return ApiResponse.error(ex.getMessage());
+    }
+
+    // Captura errores del servicio de almacenamiento (Cloudinary) -> HTTP 502 Bad Gateway
+    @ExceptionHandler(StorageException.class)
+    @ResponseStatus(HttpStatus.BAD_GATEWAY)
+    public ApiResponse<Void> handleStorageException(StorageException ex) {
+        return ApiResponse.error(ex.getMessage());
+    }
 }
