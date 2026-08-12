@@ -10,7 +10,7 @@
         <p class="text-sm text-gray-500">Registrate en Benteveo</p>
       </div>
 
-      <form class="flex flex-col gap-5" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <form class="flex flex-col gap-5" (submit)="onSubmit(); $event.preventDefault()">
         <div class="flex gap-4">
           <div class="flex min-w-0 flex-1 flex-col gap-1.5">
             <label for="firstName" class="text-sm font-medium text-brand">Nombre</label>
@@ -19,12 +19,12 @@
               id="firstName"
               placeholder="Juan"
               autocomplete="given-name"
-              formControlName="firstName"
+              [formField]="registerForm.firstName"
               class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-              [class.input-error]="registerForm.controls.firstName.touched && registerForm.controls.firstName.invalid"
+              [class.input-error]="registerForm.firstName().touched() && registerForm.firstName().errors().length"
             />
-            @if (registerForm.controls.firstName.touched && registerForm.controls.firstName.invalid) {
-              <span class="text-xs text-error">Nombre obligatorio.</span>
+            @if (registerForm.firstName().touched() && registerForm.firstName().errors().length) {
+              <span class="text-xs text-error">{{ registerForm.firstName().errors()[0].message }}</span>
             }
           </div>
 
@@ -35,12 +35,12 @@
               id="lastName"
               placeholder="Pérez"
               autocomplete="family-name"
-              formControlName="lastName"
+              [formField]="registerForm.lastName"
               class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-              [class.input-error]="registerForm.controls.lastName.touched && registerForm.controls.lastName.invalid"
+              [class.input-error]="registerForm.lastName().touched() && registerForm.lastName().errors().length"
             />
-            @if (registerForm.controls.lastName.touched && registerForm.controls.lastName.invalid) {
-              <span class="text-xs text-error">Apellido obligatorio.</span>
+            @if (registerForm.lastName().touched() && registerForm.lastName().errors().length) {
+              <span class="text-xs text-error">{{ registerForm.lastName().errors()[0].message }}</span>
             }
           </div>
         </div>
@@ -52,18 +52,12 @@
             id="email"
             placeholder="tu@email.com"
             autocomplete="email"
-            formControlName="email"
+            [formField]="registerForm.email"
             class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-            [class.input-error]="registerForm.controls.email.touched && registerForm.controls.email.invalid"
+            [class.input-error]="registerForm.email().touched() && registerForm.email().errors().length"
           />
-          @if (registerForm.controls.email.touched && registerForm.controls.email.invalid) {
-            <span class="text-xs text-error">
-              @if (registerForm.controls.email.hasError('required')) {
-                El email es obligatorio.
-              } @else if (registerForm.controls.email.hasError('email')) {
-                Ingresá un email válido.
-              }
-            </span>
+          @if (registerForm.email().touched() && registerForm.email().errors().length) {
+            <span class="text-xs text-error">{{ registerForm.email().errors()[0].message }}</span>
           }
         </div>
 
@@ -73,12 +67,12 @@
             type="text"
             id="dni"
             placeholder="12.345.678"
-            formControlName="dni"
+            [formField]="registerForm.dni"
             class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-            [class.input-error]="registerForm.controls.dni.touched && registerForm.controls.dni.invalid"
+            [class.input-error]="registerForm.dni().touched() && registerForm.dni().errors().length"
           />
-          @if (registerForm.controls.dni.touched && registerForm.controls.dni.invalid) {
-            <span class="text-xs text-error">El DNI es obligatorio.</span>
+          @if (registerForm.dni().touched() && registerForm.dni().errors().length) {
+            <span class="text-xs text-error">{{ registerForm.dni().errors()[0].message }}</span>
           }
         </div>
 
@@ -89,18 +83,28 @@
             id="password"
             placeholder="••••••••"
             autocomplete="new-password"
-            formControlName="password"
+            [formField]="registerForm.password"
             class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-            [class.input-error]="registerForm.controls.password.touched && registerForm.controls.password.invalid"
+            [class.input-error]="registerForm.password().touched() && registerForm.password().errors().length"
           />
-          @if (registerForm.controls.password.touched && registerForm.controls.password.invalid) {
-            <span class="text-xs text-error">
-              @if (registerForm.controls.password.hasError('required')) {
-                La contraseña es obligatoria.
-              } @else if (registerForm.controls.password.hasError('minlength')) {
-                Mínimo 6 caracteres.
-              }
-            </span>
+          @if (registerForm.password().touched() && registerForm.password().errors().length) {
+            <span class="text-xs text-error">{{ registerForm.password().errors()[0].message }}</span>
+          }
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label for="confirmPassword" class="text-sm font-medium text-brand">Confirmar contraseña</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="••••••••"
+            autocomplete="new-password"
+            [formField]="registerForm.confirmPassword"
+            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            [class.input-error]="registerForm.confirmPassword().touched() && registerForm.confirmPassword().errors().length"
+          />
+          @if (registerForm.confirmPassword().touched() && registerForm.confirmPassword().errors().length) {
+            <span class="text-xs text-error">{{ registerForm.confirmPassword().errors()[0].message }}</span>
           }
         </div>
 

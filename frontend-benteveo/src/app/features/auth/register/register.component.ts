@@ -1,28 +1,51 @@
-import { Component, inject } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import {
+  form,
+  FormField,
+  submit,
+  required,
+  email,
+  minLength,
+  validate,
+} from '@angular/forms/signals';
 
 @Component({
   selector: 'app-register',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, FormField],
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
-  private readonly fb = inject(FormBuilder);
+  protected readonly model = signal({
+    firstName: '',
+    lastName: '',
+    email: '',
+    dni: '',
+    password: '',
+    confirmPassword: '',
+  });
 
-  readonly registerForm = this.fb.nonNullable.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    dni: ['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+  protected readonly registerForm = form(this.model, (s) => {
+    required(s.firstName, { message: 'Nombre obligatorio.' });
+    required(s.lastName, { message: 'Apellido obligatorio.' });
+    required(s.email, { message: 'El email es obligatorio.' });
+    email(s.email, { message: 'Ingresá un email válido.' });
+    required(s.dni, { message: 'El DNI es obligatorio.' });
+    required(s.password, { message: 'La contraseña es obligatoria.' });
+    minLength(s.password, 6, { message: 'Mínimo 6 caracteres.' });
+    required(s.confirmPassword, { message: 'Confirmá tu contraseña.' });
+    validate(s.confirmPassword, ({ valueOf }) => {
+      if (valueOf(s.confirmPassword) !== valueOf(s.password)) {
+        return { kind: 'mismatch', message: 'Las contraseñas no coinciden.' };
+      }
+      return undefined;
+    });
   });
 
   onSubmit(): void {
-    if (this.registerForm.valid) {
-      console.log(this.registerForm.getRawValue());
-    } else {
-      this.registerForm.markAllAsTouched();
-    }
+    submit(this.registerForm, async () => {
+      const { firstName, lastName, email, dni, password } = this.model();
+      console.log({ firstName, lastName, email, dni, password });
+    });
   }
 }

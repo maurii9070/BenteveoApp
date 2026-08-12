@@ -1,25 +1,28 @@
-import { Component, inject } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import { form, FormField, submit, required, email, minLength } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, FormField],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  private readonly fb = inject(FormBuilder);
+  protected readonly model = signal({
+    email: '',
+    password: '',
+  });
 
-  readonly loginForm = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+  protected readonly loginForm = form(this.model, (s) => {
+    required(s.email, { message: 'El email es obligatorio.' });
+    email(s.email, { message: 'Ingresá un email válido.' });
+    required(s.password, { message: 'La contraseña es obligatoria.' });
+    minLength(s.password, 6, { message: 'Mínimo 6 caracteres.' });
   });
 
   onSubmit(): void {
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.getRawValue());
-    } else {
-      this.loginForm.markAllAsTouched();
-    }
+    submit(this.loginForm, async () => {
+      console.log(this.model());
+    });
   }
 }

@@ -8,7 +8,7 @@
         <p class="text-sm text-gray-500">Accedé a tu cuenta de Benteveo</p>
       </div>
 
-      <form class="flex flex-col gap-5" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form class="flex flex-col gap-5" (submit)="onSubmit(); $event.preventDefault()">
         <div class="flex flex-col gap-1.5">
           <label for="email" class="text-sm font-medium text-brand">Email</label>
           <input
@@ -16,18 +16,12 @@
             id="email"
             placeholder="tu@email.com"
             autocomplete="email"
-            formControlName="email"
+            [formField]="loginForm.email"
             class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-            [class.input-error]="loginForm.controls.email.touched && loginForm.controls.email.invalid"
+            [class.input-error]="loginForm.email().touched() && loginForm.email().errors().length"
           />
-          @if (loginForm.controls.email.touched && loginForm.controls.email.invalid) {
-            <span class="text-xs text-error">
-              @if (loginForm.controls.email.hasError('required')) {
-                El email es obligatorio.
-              } @else if (loginForm.controls.email.hasError('email')) {
-                Ingresá un email válido.
-              }
-            </span>
+          @if (loginForm.email().touched() && loginForm.email().errors().length) {
+            <span class="text-xs text-error">{{ loginForm.email().errors()[0].message }}</span>
           }
         </div>
 
@@ -38,18 +32,12 @@
             id="password"
             placeholder="••••••••"
             autocomplete="current-password"
-            formControlName="password"
+            [formField]="loginForm.password"
             class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-400 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
-            [class.input-error]="loginForm.controls.password.touched && loginForm.controls.password.invalid"
+            [class.input-error]="loginForm.password().touched() && loginForm.password().errors().length"
           />
-          @if (loginForm.controls.password.touched && loginForm.controls.password.invalid) {
-            <span class="text-xs text-error">
-              @if (loginForm.controls.password.hasError('required')) {
-                La contraseña es obligatoria.
-              } @else if (loginForm.controls.password.hasError('minlength')) {
-                Mínimo 6 caracteres.
-              }
-            </span>
+          @if (loginForm.password().touched() && loginForm.password().errors().length) {
+            <span class="text-xs text-error">{{ loginForm.password().errors()[0].message }}</span>
           }
         </div>
 
