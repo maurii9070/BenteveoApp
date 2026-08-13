@@ -39,10 +39,10 @@ public class Profile {
     private User user;
 
     // --- Campos de dirección ---
-    @Column(name = "street", nullable = false)
+    @Column(name = "street" )
     private String street;
 
-    @Column(name = "street_number", nullable = false)
+    @Column(name = "street_number")
     private String streetNumber;
 
     @Column(name = "floor", length = 10)
@@ -52,7 +52,7 @@ public class Profile {
     private String apartment;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zone_id", nullable = false)
+    @JoinColumn(name = "zone_id")
     private Zone zone;
 
     @Column(name = "is_complete", nullable = false)

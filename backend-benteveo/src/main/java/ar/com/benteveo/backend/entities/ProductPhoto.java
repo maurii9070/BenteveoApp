@@ -24,6 +24,9 @@ public class ProductPhoto {
     @Column(nullable = false)
     private String url;
 
+    @Column(name = "public_id", nullable = false)
+    private String publicId;
+
     private String caption;
 
     @Column(name = "sort_order", nullable = false)
