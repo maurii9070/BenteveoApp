@@ -1,4 +1,4 @@
-package ar.com.benteveo.backend.features.product.list;
+package ar.com.benteveo.backend.features.product.listByUser;
 
 import ar.com.benteveo.backend.features.product.ProductResponse;
 import ar.com.benteveo.backend.shared.response.ApiResponse;
