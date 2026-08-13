@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import {
   form,
   FormField,
@@ -9,6 +9,11 @@ import {
   minLength,
   validate,
 } from '@angular/forms/signals';
+import { firstValueFrom } from 'rxjs';
+import { toast } from 'ngx-sonner';
+
+import { RegisterRequest } from './register.models';
+import { RegisterService } from './register.service';
 
 @Component({
   selector: 'app-register',
@@ -16,6 +21,11 @@ import {
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
+  private readonly registerService = inject(RegisterService);
+  private readonly router = inject(Router);
+
+  protected readonly isSubmitting = signal(false);
+
   protected readonly model = signal({
     firstName: '',
     lastName: '',
@@ -44,8 +54,18 @@ export class RegisterComponent {
 
   onSubmit(): void {
     submit(this.registerForm, async () => {
+      this.isSubmitting.set(true);
+
       const { firstName, lastName, email, dni, password } = this.model();
-      console.log({ firstName, lastName, email, dni, password });
+      const request: RegisterRequest = { firstName, lastName, email, dni, password };
+
+      try {
+        await firstValueFrom(this.registerService.register(request));
+        toast.success('¡Te registraste correctamente!');
+        await this.router.navigate(['/login']);
+      } finally {
+        this.isSubmitting.set(false);
+      }
     });
   }
 }
