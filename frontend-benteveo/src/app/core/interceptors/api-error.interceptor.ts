@@ -1,11 +1,16 @@
 import { HttpErrorResponse, HttpHandlerFn, HttpRequest } from '@angular/common/http';
+import { toast } from 'ngx-sonner';
 import { catchError, throwError } from 'rxjs';
 
 import { ApiError, ApiResponse } from '../../shared/models/api-response';
 
 export function apiErrorInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
   return next(req).pipe(
-    catchError((error: unknown) => throwError(() => toApiError(error))),
+    catchError((error: unknown) => {
+      const apiError = toApiError(error);
+      toast.error(apiError.message);
+      return throwError(() => apiError);
+    }),
   );
 }
 
