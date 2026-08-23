@@ -66,9 +66,10 @@
 
         <button
           type="submit"
-          class="cursor-pointer rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-stone-900 transition hover:bg-primary-hover active:scale-[0.98]"
+          [disabled]="isSubmitting()"
+          class="cursor-pointer rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-stone-900 transition hover:bg-primary-hover active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Ingresar
+          {{ isSubmitting() ? 'Ingresando…' : 'Ingresar' }}
         </button>
       </form>
 
