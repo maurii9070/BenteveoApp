@@ -55,6 +55,8 @@ public class SecurityConfig {
 
                 // Configura los permisos de acceso a las rutas
                 .authorizeHttpRequests(auth -> auth
+                        // Los datos del usuario autenticado requieren JWT válido
+                        .requestMatchers("/api/v1/auth/me").authenticated()
                         // Las rutas de autenticación (login/register) son públicas
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         // lo demás requiere un usuario autenticado (JWT válido)

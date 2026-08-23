@@ -1,6 +1,12 @@
-import { Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { form, FormField, submit, required, email, minLength } from '@angular/forms/signals';
+import { firstValueFrom } from 'rxjs';
+import { toast } from 'ngx-sonner';
+
+import { SessionService } from '../../../core/services/session.service';
+import { LoginRequest } from './login.models';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -8,6 +14,12 @@ import { form, FormField, submit, required, email, minLength } from '@angular/fo
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
+  private readonly loginService = inject(LoginService);
+  private readonly sessionService = inject(SessionService);
+  private readonly router = inject(Router);
+
+  protected readonly isSubmitting = signal(false);
+
   protected readonly model = signal({
     email: '',
     password: '',
@@ -22,7 +34,23 @@ export class LoginComponent {
 
   onSubmit(): void {
     submit(this.loginForm, async () => {
-      console.log(this.model());
+      this.isSubmitting.set(true);
+
+      const { email, password } = this.model();
+      const request: LoginRequest = { email, password };
+
+      try {
+        const { token } = await firstValueFrom(this.loginService.login(request));
+        this.sessionService.setSession(token);
+
+        const me = await firstValueFrom(this.loginService.me());
+        this.sessionService.setUser(me);
+
+        toast.success('¡Iniciaste sesión correctamente!');
+        await this.router.navigate(['/']);
+      } finally {
+        this.isSubmitting.set(false);
+      }
     });
   }
 }
