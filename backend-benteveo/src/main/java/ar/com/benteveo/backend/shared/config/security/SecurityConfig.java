@@ -59,6 +59,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/me").authenticated()
                         // Las rutas de autenticación (login/register) son públicas
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        // Documentación OpenAPI (Scalar + spec) es pública
+                        .requestMatchers("/v3/api-docs/**", "/v3/api-docs.yaml", "/docs/**").permitAll()
                         // lo demás requiere un usuario autenticado (JWT válido)
                         .anyRequest().authenticated()
                 )
