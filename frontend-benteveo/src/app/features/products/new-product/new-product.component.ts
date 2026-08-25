@@ -20,6 +20,8 @@ export class NewProductComponent implements OnInit {
   protected readonly isSubmitting = signal(false);
   protected readonly categories = signal<Category[]>([]);
   protected readonly selectedPhotos = signal<File[]>([]);
+  protected readonly photoPreviews = signal<string[]>([]);
+  protected readonly currentStep = signal<1 | 2>(1);
 
   protected readonly model = signal({
     title: '',
@@ -53,7 +55,34 @@ export class NewProductComponent implements OnInit {
 
   protected onFilesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    this.selectedPhotos.set(Array.from(input.files ?? []));
+    const files = Array.from(input.files ?? []);
+
+    // Revocar previews anteriores para liberar memoria antes de reemplazarlas.
+    this.photoPreviews().forEach((url) => URL.revokeObjectURL(url));
+    this.photoPreviews.set(files.map((file) => URL.createObjectURL(file)));
+    this.selectedPhotos.set(files);
+
+    // Permitir volver a elegir los mismos archivos.
+    input.value = '';
+  }
+
+  protected onRemovePhoto(index: number): void {
+    const urls = this.photoPreviews();
+    URL.revokeObjectURL(urls[index]);
+    this.photoPreviews.set(urls.filter((_, i) => i !== index));
+    this.selectedPhotos.set(this.selectedPhotos().filter((_, i) => i !== index));
+  }
+
+  protected onContinue(): void {
+    // submit valida el formulario y solo ejecuta la lógica si es válido,
+    // además de marcar los campos como touched para mostrar los errores.
+    submit(this.newProductForm, async () => {
+      this.currentStep.set(2);
+    });
+  }
+
+  protected onBack(): void {
+    this.currentStep.set(1);
   }
 
   protected onSubmit(): void {
