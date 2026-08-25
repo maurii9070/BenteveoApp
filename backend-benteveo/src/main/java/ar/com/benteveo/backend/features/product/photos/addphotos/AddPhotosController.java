@@ -4,6 +4,9 @@ import ar.com.benteveo.backend.features.product.photos.PhotoResponse;
 import ar.com.benteveo.backend.shared.config.security.UserPrincipal;
 import ar.com.benteveo.backend.shared.response.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,6 +33,15 @@ public class AddPhotosController {
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<List<PhotoResponse>> addPhotos(
             @PathVariable UUID productId,
+            @Parameter(
+                    name = "files",
+                    description = "Archivos de imagen (JPEG, PNG, WebP, GIF). Máximo 5 MB por archivo.",
+                    required = true,
+                    content = @Content(
+                            mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
+                            schema = @Schema(type = "array", implementation = MultipartFile.class)
+                    )
+            )
             @RequestParam("files") List<MultipartFile> files,
             @AuthenticationPrincipal UserPrincipal principal
     ) {
