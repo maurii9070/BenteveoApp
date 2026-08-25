@@ -1,7 +1,7 @@
 package ar.com.benteveo.backend.features.product.listByUser;
 
-import ar.com.benteveo.backend.features.product.photos.PhotoResponse;
 import ar.com.benteveo.backend.features.product.ProductResponse;
+import ar.com.benteveo.backend.features.product.ProductResponseMapper;
 import ar.com.benteveo.backend.repositories.ProductRepository;
 import ar.com.benteveo.backend.repositories.UserRepository;
 import ar.com.benteveo.backend.shared.exception.UserNotFoundException;
@@ -15,10 +15,16 @@ public class ListProductsService {
 
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final ProductResponseMapper productResponseMapper;
 
-    public ListProductsService(ProductRepository productRepository, UserRepository userRepository) {
+    public ListProductsService(
+            ProductRepository productRepository,
+            UserRepository userRepository,
+            ProductResponseMapper productResponseMapper
+    ) {
         this.productRepository = productRepository;
         this.userRepository = userRepository;
+        this.productResponseMapper = productResponseMapper;
     }
 
     public List<ProductResponse> execute(UUID userId) {
@@ -26,35 +32,7 @@ public class ListProductsService {
                 .orElseThrow(UserNotFoundException::new);
 
         return productRepository.findAllByOwnerIdAndDeletedAtIsNull(userId).stream()
-                .map(product -> new ProductResponse(
-                        product.getId(),
-                        product.getTitle(),
-                        product.getDescription(),
-                        product.getPriceDay(),
-                        product.getPriceWeek(),
-                        product.getPriceMonth(),
-                        product.getDeposit(),
-                        product.getIsActive(),
-                        product.getStatus().name(),
-                        product.getRatingAvg(),
-                        product.getRatingCount(),
-                        product.getCategory().getName(),
-                        product.getOwner().getId(),
-                        product.getPhotos() != null
-                                ? product.getPhotos().stream()
-                                        .map(photo -> new PhotoResponse(
-                                                photo.getId(),
-                                                photo.getUrl(),
-                                                photo.getPublicId(),
-                                                photo.getCaption(),
-                                                photo.getSortOrder(),
-                                                photo.getIsPrimary()
-                                        ))
-                                        .toList()
-                                : List.of(),
-                        product.getCreatedAt(),
-                        product.getUpdatedAt()
-                ))
+                .map(productResponseMapper::toResponse)
                 .toList();
     }
 }

@@ -3,6 +3,7 @@ package ar.com.benteveo.backend.shared.config.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -61,6 +62,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         // Documentación OpenAPI (Scalar + spec) es pública
                         .requestMatchers("/v3/api-docs/**", "/v3/api-docs.yaml", "/docs/**").permitAll()
+                        // Catálogo de productos (GET) es público: navegación sin token
+                        .requestMatchers(HttpMethod.GET, "/api/v1/products", "/api/v1/products/*").permitAll()
                         // lo demás requiere un usuario autenticado (JWT válido)
                         .anyRequest().authenticated()
                 )

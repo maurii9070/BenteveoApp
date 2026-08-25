@@ -30,6 +30,9 @@ public class GlobalExceptionHandler {
     private static final String DESC_401 = "No autenticado o credenciales inválidas";
     private static final String EXAMPLE_401 = "{\"success\":false,\"message\":\"Credenciales inválidas o token ausente\",\"data\":null,\"timestamp\":\"2026-08-23T20:00:00\"}";
 
+    private static final String DESC_403 = "Acción prohibida: no tiene permisos de dueño o rol ADMIN";
+    private static final String EXAMPLE_403 = "{\"success\":false,\"message\":\"No tienes permisos para realizar esta acción\",\"data\":null,\"timestamp\":\"2026-08-23T20:00:00\"}";
+
     private static final String DESC_404 = "Recurso no encontrado";
     private static final String EXAMPLE_404 = "{\"success\":false,\"message\":\"Recurso no encontrado\",\"data\":null,\"timestamp\":\"2026-08-23T20:00:00\"}";
 
@@ -128,6 +131,22 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ApiResponse<Void> handleInvalidCredentials(InvalidCredentialsException ex) {
+        return ApiResponse.error(ex.getMessage());
+    }
+
+    // Captura acciones prohibidas (no es dueño ni ADMIN) -> HTTP 403 Forbidden
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(
+            responseCode = "403",
+            description = DESC_403,
+            content = @Content(
+                    mediaType = MEDIA_JSON,
+                    schema = @Schema(implementation = ApiResponse.class),
+                    examples = @ExampleObject(value = EXAMPLE_403)
+            )
+    )
+    @ExceptionHandler(ForbiddenException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ApiResponse<Void> handleForbidden(ForbiddenException ex) {
         return ApiResponse.error(ex.getMessage());
     }
 

@@ -3,6 +3,8 @@ package ar.com.benteveo.backend.features.product.photos.deletephoto;
 import ar.com.benteveo.backend.infrastructure.storage.StorageServiceInterface;
 import ar.com.benteveo.backend.repositories.ProductPhotoRepository;
 import ar.com.benteveo.backend.repositories.ProductRepository;
+import ar.com.benteveo.backend.shared.config.security.UserPrincipal;
+import ar.com.benteveo.backend.shared.exception.ForbiddenException;
 import ar.com.benteveo.backend.shared.exception.PhotoNotFoundException;
 import ar.com.benteveo.backend.shared.exception.ProductNotFoundException;
 import org.springframework.stereotype.Service;
@@ -28,9 +30,13 @@ public class DeletePhotoService {
     }
 
     @Transactional
-    public void execute(UUID productId, String publicId) {
-        productRepository.findByIdAndDeletedAtIsNull(productId)
+    public void execute(UUID productId, String publicId, UserPrincipal principal) {
+        var product = productRepository.findByIdAndDeletedAtIsNull(productId)
                 .orElseThrow(ProductNotFoundException::new);
+
+        if (!principal.isOwnerOrAdmin(product.getOwner().getId())) {
+            throw new ForbiddenException();
+        }
 
         var photo = productPhotoRepository.findByPublicIdAndProductId(publicId, productId)
                 .orElseThrow(PhotoNotFoundException::new);

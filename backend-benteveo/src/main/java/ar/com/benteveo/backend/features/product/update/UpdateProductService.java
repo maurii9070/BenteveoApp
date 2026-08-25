@@ -3,7 +3,9 @@ package ar.com.benteveo.backend.features.product.update;
 import ar.com.benteveo.backend.enums.ProductStatus;
 import ar.com.benteveo.backend.repositories.CategoryRepository;
 import ar.com.benteveo.backend.repositories.ProductRepository;
+import ar.com.benteveo.backend.shared.config.security.UserPrincipal;
 import ar.com.benteveo.backend.shared.exception.CategoryNotFoundException;
+import ar.com.benteveo.backend.shared.exception.ForbiddenException;
 import ar.com.benteveo.backend.shared.exception.ProductNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +24,13 @@ public class UpdateProductService {
     }
 
     @Transactional
-    public void execute(UUID id, UpdateProductRequest request) {
+    public void execute(UUID id, UpdateProductRequest request, UserPrincipal principal) {
         var product = productRepository.findByIdAndDeletedAtIsNull(id)
                 .orElseThrow(ProductNotFoundException::new);
+
+        if (!principal.isOwnerOrAdmin(product.getOwner().getId())) {
+            throw new ForbiddenException();
+        }
 
         if (request.title() != null) {
             product.setTitle(request.title());
