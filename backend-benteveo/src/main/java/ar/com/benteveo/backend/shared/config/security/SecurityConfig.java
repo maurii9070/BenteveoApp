@@ -62,8 +62,13 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         // Documentación OpenAPI (Scalar + spec) es pública
                         .requestMatchers("/v3/api-docs/**", "/v3/api-docs.yaml", "/docs/**").permitAll()
-                        // Catálogo de productos (GET) es público: navegación sin token
-                        .requestMatchers(HttpMethod.GET, "/api/v1/products", "/api/v1/products/*").permitAll()
+                        // Catálogo de productos y categorías (GET) es público: navegación sin token
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/api/v1/products",
+                                "/api/v1/products/*",
+                                "/api/v1/categories"
+                        ).permitAll()
                         // lo demás requiere un usuario autenticado (JWT válido)
                         .anyRequest().authenticated()
                 )
