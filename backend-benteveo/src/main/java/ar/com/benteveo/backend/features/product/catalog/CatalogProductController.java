@@ -4,6 +4,7 @@ import ar.com.benteveo.backend.enums.ProductStatus;
 import ar.com.benteveo.backend.features.product.ProductResponse;
 import ar.com.benteveo.backend.shared.response.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @Tag(name = "Products", description = "Gestión del catálogo de productos")
 @RestController
@@ -23,13 +25,21 @@ public class CatalogProductController {
         this.catalogProductService = catalogProductService;
     }
 
-    @Operation(summary = "Catálogo de productos",
-            description = "Devuelve los productos activos del catálogo. Por defecto solo los publicados (PUBLISHED); se puede filtrar por status.")
+    @Operation(summary = "Obtener productos",
+            description = "Devuelve productos. Si se indica un dueño (owner) se listan los productos de ese usuario. "
+                    + "De lo contrario, devuelve el catálogo público con productos activos, filtrado por status "
+                    + "(por defecto PUBLISHED). Al filtrar por dueño, el status no aplica.")
     @GetMapping
-    public ApiResponse<List<ProductResponse>> catalog(
-            @RequestParam(required = false) ProductStatus status
+    public ApiResponse<List<ProductResponse>> list(
+            @RequestParam(required = false)
+            @Parameter(description = "ID del usuario dueño. Si se envía, devuelve los productos de ese usuario.")
+            UUID owner,
+
+            @RequestParam(required = false)
+            @Parameter(description = "Estado del producto para el catálogo público. Valores: DRAFT, PUBLISHED, PAUSED, ARCHIVED.")
+            ProductStatus status
     ) {
-        var response = catalogProductService.execute(status);
-        return ApiResponse.success("Catálogo de productos obtenido correctamente", response);
+        var response = catalogProductService.execute(owner, status);
+        return ApiResponse.success("Productos obtenidos correctamente", response);
     }
 }
