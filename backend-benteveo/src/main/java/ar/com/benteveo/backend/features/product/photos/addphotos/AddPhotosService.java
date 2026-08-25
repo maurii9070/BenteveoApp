@@ -6,7 +6,9 @@ import ar.com.benteveo.backend.infrastructure.storage.StorageResult;
 import ar.com.benteveo.backend.infrastructure.storage.StorageServiceInterface;
 import ar.com.benteveo.backend.repositories.ProductPhotoRepository;
 import ar.com.benteveo.backend.repositories.ProductRepository;
+import ar.com.benteveo.backend.shared.config.security.UserPrincipal;
 import ar.com.benteveo.backend.shared.exception.FileValidationException;
+import ar.com.benteveo.backend.shared.exception.ForbiddenException;
 import ar.com.benteveo.backend.shared.exception.ProductNotFoundException;
 import ar.com.benteveo.backend.shared.validation.ImageFileValidator;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,7 @@ public class AddPhotosService {
     }
 
     @Transactional
-    public List<PhotoResponse> execute(UUID productId, List<MultipartFile> files) {
+    public List<PhotoResponse> execute(UUID productId, List<MultipartFile> files, UserPrincipal principal) {
         if (files == null || files.isEmpty()) {
             throw new FileValidationException("Debe enviar al menos un archivo");
         }
@@ -46,6 +48,10 @@ public class AddPhotosService {
 
         var product = productRepository.findByIdAndDeletedAtIsNull(productId)
                 .orElseThrow(ProductNotFoundException::new);
+
+        if (!principal.isOwnerOrAdmin(product.getOwner().getId())) {
+            throw new ForbiddenException();
+        }
 
         int currentCount = product.getPhotos() != null ? product.getPhotos().size() : 0;
 

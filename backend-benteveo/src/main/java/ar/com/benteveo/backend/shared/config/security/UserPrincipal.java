@@ -35,6 +35,19 @@ public class UserPrincipal implements UserDetails {
         return id;
     }
 
+    public boolean hasRole(String role) {
+        return getAuthorities().stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ROLE_" + role));
+    }
+
+    public boolean isAdmin() {
+        return hasRole("ADMIN");
+    }
+
+    public boolean isOwnerOrAdmin(UUID ownerId) {
+        return isAdmin() || (ownerId != null && ownerId.equals(id));
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

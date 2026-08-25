@@ -5,12 +5,11 @@ import ar.com.benteveo.backend.enums.ProductStatus;
 import ar.com.benteveo.backend.repositories.CategoryRepository;
 import ar.com.benteveo.backend.repositories.ProductRepository;
 import ar.com.benteveo.backend.repositories.UserRepository;
+import ar.com.benteveo.backend.shared.config.security.UserPrincipal;
 import ar.com.benteveo.backend.shared.exception.CategoryNotFoundException;
 import ar.com.benteveo.backend.shared.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.UUID;
 
 @Service
 public class CreateProductService {
@@ -30,11 +29,11 @@ public class CreateProductService {
     }
 
     @Transactional
-    public CreateProductResponse execute(UUID userId, CreateProductRequest request) {
+    public CreateProductResponse execute(UserPrincipal principal, CreateProductRequest request) {
         var category = categoryRepository.findById(request.categoryId())
                 .orElseThrow(CategoryNotFoundException::new);
 
-        var owner = userRepository.findById(userId)
+        var owner = userRepository.findById(principal.getId())
                 .orElseThrow(UserNotFoundException::new);
 
         var product = Product.builder()
