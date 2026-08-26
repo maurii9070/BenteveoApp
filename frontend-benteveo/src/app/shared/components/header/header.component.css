@@ -4,18 +4,21 @@
   font-weight: 500;
   color: var(--color-brand-muted);
   text-decoration: none;
-  padding: 0.375rem 0;
-  transition: color 150ms ease;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
 }
 
 .nav-link:hover {
   color: var(--color-brand);
+  background-color: rgba(15, 46, 34, 0.05);
 }
 
 .nav-link:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
-  border-radius: 0.25rem;
 }
 
 .nav-link-active {
@@ -25,9 +28,9 @@
 .nav-link-active::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.25rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.125rem;
   height: 2px;
   border-radius: 999px;
   background-color: var(--color-primary);

@@ -1,31 +1,53 @@
-<footer class="footer">
-  <div class="footer-container">
-    <div class="footer-brand">
-      <span class="brand">Benteveo</span>
-      <p class="tagline">Alquilá lo que necesitás, publicá lo que no usás.</p>
+<footer class="bg-brand text-white">
+  <div class="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:py-16">
+    <div>
+      <div class="flex items-center gap-2.5">
+        <span
+          class="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-lg font-bold text-dark"
+          >B</span
+        >
+        <span class="text-lg font-bold tracking-tight">Benteveo</span>
+      </div>
+      <p class="mt-3 max-w-[34ch] text-sm leading-relaxed text-white/60">
+        Alquilá lo que necesitás, publicá lo que no usás.
+      </p>
     </div>
 
-    <div class="footer-links">
-      <div class="footer-column">
-        <h4>Navegación</h4>
-        <a routerLink="/reservations">Reservas</a>
-      </div>
+    <nav aria-label="Navegación" class="flex flex-col gap-2.5">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Navegación</p>
+      <a routerLink="/" class="text-sm text-white/60 transition hover:text-white">Inicio</a>
+      <a routerLink="/reservations" class="text-sm text-white/60 transition hover:text-white"
+        >Reservas</a
+      >
+      <a routerLink="/productos/nuevo" class="text-sm text-white/60 transition hover:text-white"
+        >Publicar</a
+      >
+    </nav>
 
-      <div class="footer-column">
-        <h4>Cuenta</h4>
-        <a routerLink="/login">Iniciar Sesión</a>
-        <a routerLink="/register">Registrarse</a>
-      </div>
+    <nav aria-label="Cuenta" class="flex flex-col gap-2.5">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Cuenta</p>
+      <a routerLink="/login" class="text-sm text-white/60 transition hover:text-white"
+        >Iniciar sesión</a
+      >
+      <a routerLink="/register" class="text-sm text-white/60 transition hover:text-white"
+        >Registrarse</a
+      >
+    </nav>
 
-      <div class="footer-column">
-        <h4>Contacto</h4>
-        <span>info&#64;benteveo.com</span>
-        <span>+54 11 1234-5678</span>
-      </div>
+    <div class="flex flex-col gap-2.5">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-primary">Contacto</p>
+      <a
+        href="mailto:info@benteveo.com"
+        class="text-sm text-white/60 transition hover:text-white"
+        >info&#64;benteveo.com</a
+      >
     </div>
   </div>
 
-  <div class="footer-bottom">
-    <p>&copy; 2026 Benteveo. Todos los derechos reservados.</p>
+  <div class="border-t border-white/10">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-5 text-xs text-white/40 sm:flex-row">
+      <p>&copy; 2026 Benteveo. Todos los derechos reservados.</p>
+      <p>Hecho con <span class="text-primary">&hearts;</span> en Argentina</p>
+    </div>
   </div>
 </footer>

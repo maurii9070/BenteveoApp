@@ -3,28 +3,28 @@
     routerLink="/"
     class="absolute left-8 top-8 z-20 flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
   >
-    <span aria-hidden="true">←</span>
+    <i class="ph ph-arrow-left text-sm" aria-hidden="true"></i>
     Volver al inicio
   </a>
 
-  <div class="mb-8 w-full max-w-2xl animate-card-appear rounded-xl bg-white p-10 shadow-sm">
+  <div class="mb-8 w-full max-w-2xl animate-card-appear rounded-2xl bg-white p-10 shadow-soft">
     <div class="mb-8">
-      <h1 class="mb-2 text-[1.75rem] font-bold text-brand">Publicar un producto</h1>
-      <p class="text-sm text-gray-600">Completá los datos para ofrecerlo en alquiler</p>
+      <h1 class="mb-2 text-[1.75rem] font-bold tracking-tight text-dark">Publicar un producto</h1>
+      <p class="text-sm text-brand-muted">Completá los datos para ofrecerlo en alquiler</p>
     </div>
 
     <div class="mb-8 flex items-center gap-2">
       <span
         class="flex h-8 items-center gap-2 rounded-full px-4 text-sm font-semibold transition-colors"
-        [class]="currentStep() === 1 ? 'bg-primary text-stone-900' : 'bg-surface text-gray-600'"
+        [class]="currentStep() === 1 ? 'bg-primary text-dark' : 'bg-surface text-brand-muted'"
       >
         <span aria-hidden="true">1</span>
         Datos del producto
       </span>
-      <span aria-hidden="true" class="h-px flex-1 bg-gray-300"></span>
+      <span aria-hidden="true" class="h-px flex-1 bg-stone-300"></span>
       <span
         class="flex h-8 items-center gap-2 rounded-full px-4 text-sm font-semibold transition-colors"
-        [class]="currentStep() === 2 ? 'bg-primary text-stone-900' : 'bg-surface text-gray-600'"
+        [class]="currentStep() === 2 ? 'bg-primary text-dark' : 'bg-surface text-brand-muted'"
       >
         <span aria-hidden="true">2</span>
         Fotos
@@ -43,7 +43,7 @@
             id="title"
             placeholder="Ej. Martillo profesional"
             [formField]="newProductForm.title"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            class="input-base"
             [class.input-error]="
               newProductForm.title().touched() && newProductForm.title().errors().length
             "
@@ -62,7 +62,7 @@
             rows="4"
             placeholder="Contá en qué estado está, qué incluye, etc."
             [formField]="newProductForm.description"
-            class="w-full resize-none rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            class="input-base resize-none"
             [class.input-error]="
               newProductForm.description().touched() && newProductForm.description().errors().length
             "
@@ -81,7 +81,7 @@
           <select
             id="categoryId"
             [formField]="newProductForm.categoryId"
-            class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            class="input-base"
             [class.input-error]="
               newProductForm.categoryId().touched() && newProductForm.categoryId().errors().length
             "
@@ -107,7 +107,7 @@
             id="priceDay"
             placeholder="1500"
             [formField]="newProductForm.priceDay"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            class="input-base"
             [class.input-error]="
               newProductForm.priceDay().touched() && newProductForm.priceDay().errors().length
             "
@@ -128,7 +128,7 @@
             id="priceWeek"
             placeholder="Opcional"
             [formField]="newProductForm.priceWeek"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            class="input-base"
             [class.input-error]="
               newProductForm.priceWeek().touched() && newProductForm.priceWeek().errors().length
             "
@@ -147,7 +147,7 @@
             id="priceMonth"
             placeholder="30000"
             [formField]="newProductForm.priceMonth"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            class="input-base"
             [class.input-error]="
               newProductForm.priceMonth().touched() && newProductForm.priceMonth().errors().length
             "
@@ -168,7 +168,7 @@
             id="deposit"
             placeholder="5000"
             [formField]="newProductForm.deposit"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] placeholder:text-gray-500 focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            class="input-base"
             [class.input-error]="
               newProductForm.deposit().touched() && newProductForm.deposit().errors().length
             "
@@ -182,7 +182,7 @@
 
         <button
           type="submit"
-          class="cursor-pointer rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-stone-900 transition hover:bg-primary-hover active:scale-[0.98]"
+          class="cursor-pointer rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-dark transition hover:bg-primary-hover active:scale-[0.98]"
         >
           Continuar →
         </button>
@@ -197,10 +197,10 @@
             accept="image/*"
             multiple
             (change)="onFilesSelected($event)"
-            class="w-full cursor-pointer rounded-lg border border-dashed border-gray-300 bg-surface/40 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] file:mr-3 file:cursor-pointer file:rounded-md file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-stone-900 hover:border-primary focus:border-primary focus:ring-[3px] focus:ring-primary/15"
+            class="w-full cursor-pointer rounded-xl border border-dashed border-stone-300 bg-surface/40 px-3 py-2.5 text-sm text-dark outline-none transition-[border-color,box-shadow] file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-primary file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-dark hover:border-primary focus:border-primary focus:ring-[3px] focus:ring-primary/15"
           />
           @if (selectedPhotos().length) {
-            <span class="text-xs text-gray-600">
+            <span class="text-xs text-brand-muted">
               {{ selectedPhotos().length }}
               {{ selectedPhotos().length === 1 ? 'foto' : 'fotos' }} seleccionada{{
                 selectedPhotos().length === 1 ? '' : 's'
@@ -213,7 +213,7 @@
           <div class="grid grid-cols-3 gap-3 sm:grid-cols-4">
             @for (preview of photoPreviews(); track preview; let i = $index) {
               <div
-                class="group relative aspect-square overflow-hidden rounded-lg border border-gray-200"
+                class="group relative aspect-square overflow-hidden rounded-xl border border-stone-200"
               >
                 <img
                   [src]="preview"
@@ -237,14 +237,14 @@
           <button
             type="button"
             (click)="onBack()"
-            class="cursor-pointer rounded-lg border border-gray-300 px-4 py-3 text-sm font-semibold text-brand transition hover:bg-surface active:scale-[0.98]"
+            class="cursor-pointer rounded-xl border border-stone-300 px-4 py-3 text-sm font-semibold text-brand transition hover:bg-surface active:scale-[0.98]"
           >
             ← Volver
           </button>
           <button
             type="submit"
             [disabled]="isSubmitting()"
-            class="cursor-pointer rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-stone-900 transition hover:bg-primary-hover active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+            class="cursor-pointer rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-dark transition hover:bg-primary-hover active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {{ isSubmitting() ? 'Publicando…' : 'Publicar producto' }}
           </button>

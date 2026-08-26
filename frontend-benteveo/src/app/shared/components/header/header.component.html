@@ -1,21 +1,22 @@
-<header class="sticky top-0 z-50 border-b border-stone-200/80 bg-white/90 backdrop-blur">
+<header class="sticky top-0 z-50 border-b border-stone-200/80 bg-surface/90 backdrop-blur">
   <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
-    <a routerLink="/" class="group flex items-center gap-2" (click)="closeMobile()">
+    <a routerLink="/" class="group flex items-center gap-2.5" (click)="closeMobile()">
       <span
-        class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand text-sm font-bold text-primary"
+        class="flex h-9 w-9 items-center justify-center rounded-xl bg-brand text-lg font-bold text-primary shadow-soft transition group-hover:shadow-lifted"
         >B</span
       >
-      <span class="text-lg font-bold tracking-tight text-brand group-hover:text-brand-muted"
+      <span class="text-lg font-bold tracking-tight text-dark group-hover:text-brand"
         >Benteveo</span
       >
     </a>
 
-    <nav aria-label="Principal" class="hidden items-center gap-6 md:flex">
+    <nav aria-label="Principal" class="hidden items-center gap-1 md:flex">
       <a
-        routerLink="/productos/nuevo"
+        routerLink="/"
         routerLinkActive="nav-link-active"
+        [routerLinkActiveOptions]="{ exact: true }"
         class="nav-link"
-        >Publicar</a
+        >Inicio</a
       >
       <a
         routerLink="/reservations"
@@ -27,6 +28,14 @@
 
     <div class="flex items-center gap-2">
       @if (isAuthenticated()) {
+        <a
+          routerLink="/productos/nuevo"
+          class="hidden cursor-pointer rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-dark transition hover:bg-primary-hover active:scale-[0.98] sm:block"
+        >
+          <i class="ph ph-plus mr-1 text-sm" aria-hidden="true"></i>
+          Publicar
+        </a>
+
         <div class="relative hidden md:block">
           <button
             type="button"
@@ -34,10 +43,10 @@
             [attr.aria-expanded]="menuOpen()"
             aria-haspopup="true"
             aria-label="Abrir menú de usuario"
-            class="flex cursor-pointer items-center gap-2 rounded-lg border border-stone-200 bg-white py-1.5 pl-1.5 pr-3 transition hover:border-stone-300 hover:shadow-sm active:scale-[0.98]"
+            class="flex cursor-pointer items-center gap-2 rounded-xl border border-stone-200 bg-white py-1.5 pl-1.5 pr-3 shadow-soft transition hover:border-stone-300 active:scale-[0.98]"
           >
             <span
-              class="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-xs font-bold text-stone-900"
+              class="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-xs font-bold text-dark"
               aria-hidden="true"
             >
               {{ initials() || 'B' }}
@@ -54,7 +63,7 @@
 
           @if (menuOpen()) {
             <div
-              class="absolute right-0 top-full mt-2 w-56 overflow-hidden rounded-xl bg-white shadow-lg ring-1 ring-stone-200"
+              class="absolute right-0 top-full mt-2 w-56 overflow-hidden rounded-2xl bg-white shadow-lifted ring-1 ring-stone-200"
               role="menu"
             >
               <div class="border-b border-stone-100 px-4 py-3">
@@ -103,19 +112,19 @@
       } @else {
         <a
           routerLink="/login"
-          class="hidden cursor-pointer rounded-lg border border-stone-300 bg-white px-4 py-2 text-sm font-semibold text-brand transition hover:border-stone-400 hover:bg-surface active:scale-[0.98] sm:block"
-          >Iniciar Sesión</a
+          class="hidden cursor-pointer rounded-xl border border-stone-300 bg-white px-4 py-2 text-sm font-semibold text-brand transition hover:border-stone-400 hover:bg-surface active:scale-[0.98] sm:block"
+          >Iniciar sesión</a
         >
         <a
           routerLink="/register"
-          class="hidden cursor-pointer rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-stone-900 transition hover:bg-primary-hover active:scale-[0.98] sm:block"
+          class="hidden cursor-pointer rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-dark transition hover:bg-primary-hover active:scale-[0.98] sm:block"
           >Registrarse</a
         >
       }
 
       <button
         type="button"
-        class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-brand transition hover:bg-surface active:scale-95 md:hidden"
+        class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-xl text-dark transition hover:bg-stone-200/60 active:scale-95 md:hidden"
         (click)="toggleMobile()"
         [attr.aria-expanded]="mobileOpen()"
         aria-label="Abrir menú de navegación"
@@ -131,33 +140,39 @@
   </div>
 
   @if (mobileOpen()) {
-    <div class="border-t border-stone-200 bg-white px-4 pb-4 pt-2 md:hidden">
+    <div class="border-t border-stone-200 bg-surface px-4 pb-4 pt-2 md:hidden">
       <nav aria-label="Principal móvil" class="flex flex-col">
         <a
           routerLink="/"
-          class="rounded-lg px-3 py-2.5 text-sm font-medium text-dark transition hover:bg-surface"
+          class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-dark transition hover:bg-stone-200/60"
           (click)="closeMobile()"
-          >Inicio</a
         >
+          <i class="ph ph-house text-base text-brand-muted" aria-hidden="true"></i>
+          Inicio
+        </a>
         <a
           routerLink="/productos/nuevo"
-          class="rounded-lg px-3 py-2.5 text-sm font-medium text-dark transition hover:bg-surface"
+          class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-dark transition hover:bg-stone-200/60"
           (click)="closeMobile()"
-          >Publicar</a
         >
+          <i class="ph ph-plus-circle text-base text-brand-muted" aria-hidden="true"></i>
+          Publicar
+        </a>
         <a
           routerLink="/reservations"
-          class="rounded-lg px-3 py-2.5 text-sm font-medium text-dark transition hover:bg-surface"
+          class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-dark transition hover:bg-stone-200/60"
           (click)="closeMobile()"
-          >Reservas</a
         >
+          <i class="ph ph-calendar-check text-base text-brand-muted" aria-hidden="true"></i>
+          Reservas
+        </a>
       </nav>
 
       @if (isAuthenticated()) {
         <div class="mt-2 flex items-center justify-between border-t border-stone-100 px-3 pt-3">
           <div class="flex items-center gap-2">
             <span
-              class="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-xs font-bold text-stone-900"
+              class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-xs font-bold text-dark"
               aria-hidden="true"
             >
               {{ initials() || 'B' }}
@@ -169,7 +184,7 @@
           </div>
           <button
             type="button"
-            class="flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-error transition hover:bg-surface"
+            class="flex cursor-pointer items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-medium text-error transition hover:bg-stone-200/60"
             (click)="logout()"
           >
             <i class="ph ph-sign-out text-base" aria-hidden="true"></i>
@@ -180,13 +195,13 @@
         <div class="mt-3 flex items-center gap-2 border-t border-stone-100 px-3 pt-3">
           <a
             routerLink="/login"
-            class="flex-1 cursor-pointer rounded-lg border border-stone-300 bg-white px-4 py-2 text-center text-sm font-semibold text-brand transition hover:bg-surface"
+            class="flex-1 cursor-pointer rounded-xl border border-stone-300 bg-white px-4 py-2 text-center text-sm font-semibold text-brand transition hover:bg-surface"
             (click)="closeMobile()"
-            >Iniciar Sesión</a
+            >Iniciar sesión</a
           >
           <a
             routerLink="/register"
-            class="flex-1 cursor-pointer rounded-lg bg-primary px-4 py-2 text-center text-sm font-semibold text-stone-900 transition hover:bg-primary-hover"
+            class="flex-1 cursor-pointer rounded-xl bg-primary px-4 py-2 text-center text-sm font-semibold text-dark transition hover:bg-primary-hover"
             (click)="closeMobile()"
             >Registrarse</a
           >
