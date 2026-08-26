@@ -22,6 +22,11 @@ export const routes: Routes = [
       import('./features/auth/register/register.component').then((m) => m.RegisterComponent),
   },
   {
+    path: 'perfil',
+    loadComponent: () =>
+      import('./features/profile/profile.component').then((m) => m.ProfileComponent),
+  },
+  {
     path: '',
     loadComponent: () =>
       import('./shared/components/layout/layout.component').then((m) => m.LayoutComponent),
