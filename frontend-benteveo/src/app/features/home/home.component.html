@@ -1,50 +1,76 @@
 <section class="bg-surface">
-  <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 md:grid-cols-2 md:py-24">
+  <div
+    class="mx-auto grid max-w-7xl items-center gap-10 px-6 pb-20 pt-12 md:grid-cols-[1.05fr_0.95fr] md:pb-28 md:pt-16"
+  >
     <div>
-      <h1 class="text-4xl font-bold tracking-tighter text-brand md:text-5xl">
-        Alquilá lo que necesitás, publicá lo que no usás.
+      <h1 class="text-4xl font-bold leading-[1.05] tracking-tighter text-dark md:text-6xl">
+        Alquilá lo que necesitás,<br />
+        publicá lo que no usás.
       </h1>
-      <p class="mt-4 max-w-[65ch] text-lg text-brand-muted">
-        Conectamos a quién tiene algo guardado con quién lo necesita. Alquilá por día, semana o mes.
+      <p class="mt-5 max-w-[52ch] text-lg leading-relaxed text-brand-muted">
+        Conectamos a quién tiene algo guardado con quién lo necesita. Alquilá por día, semana o
+        mes.
       </p>
       <div class="mt-8 flex flex-wrap gap-3">
         <a
           routerLink="/register"
-          class="cursor-pointer rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-stone-900 transition hover:bg-primary-hover active:scale-[0.98]"
+          class="cursor-pointer rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-dark shadow-soft transition hover:bg-primary-hover hover:shadow-lifted active:scale-[0.98]"
         >
-          Registrarse
+          Quiero alquilar
         </a>
         <a
           routerLink="/login"
-          class="cursor-pointer rounded-lg border border-stone-300 bg-white/60 px-5 py-3 text-sm font-semibold text-brand transition hover:border-stone-400 hover:bg-white active:scale-[0.98]"
+          class="cursor-pointer rounded-xl border border-stone-300 bg-white px-6 py-3 text-sm font-semibold text-brand transition hover:border-stone-400 hover:bg-surface-deep active:scale-[0.98]"
         >
-          Iniciar sesión
+          Quiero publicar
         </a>
       </div>
     </div>
 
-    <img
-      src="https://picsum.photos/seed/benteveo-alquiler/1200/900"
-      alt="Productos en alquiler en Benteveo"
-      class="aspect-4/3 w-full rounded-2xl object-cover shadow-sm"
-      loading="eager"
-      fetchpriority="high"
-    />
+    <div class="relative">
+      <div
+        class="absolute -inset-4 -z-10 rounded-[2rem] bg-gradient-to-br from-primary/40 via-primary-soft to-transparent"
+        aria-hidden="true"
+      ></div>
+      <img
+        src="https://picsum.photos/seed/benteveo-alquiler/1200/900"
+        alt="Productos en alquiler en Benteveo"
+        class="aspect-4/3 w-full rounded-2xl object-cover shadow-lifted"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <div
+        class="absolute -bottom-5 left-5 right-5 flex items-center justify-between gap-4 rounded-2xl border border-white/40 bg-brand/90 px-5 py-4 text-white shadow-lifted backdrop-blur-sm md:left-8 md:right-auto md:w-80"
+      >
+        <div>
+          <p class="text-2xl font-bold text-primary">+500</p>
+          <p class="text-xs text-white/70">productos cerca tuyo</p>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-primary">4.9★</p>
+          <p class="text-xs text-white/70">promedio de reseñas</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<section class="bg-white">
-  <div class="mx-auto max-w-7xl px-6 py-16 md:py-24">
-    <h2 class="text-3xl font-bold tracking-tighter text-brand">Alquilá de todo</h2>
-    <p class="mt-3 max-w-[65ch] text-brand-muted">
-      Herramientas, autos, maquinaria y lo que se te ocurra. Todo en un solo lugar.
-    </p>
-
-    <div class="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4">
+<section class="border-y border-stone-200 bg-white py-4">
+  <div class="flex overflow-hidden">
+    <div class="marquee-track flex shrink-0 items-center gap-8 pr-8">
       @for (category of categories; track category) {
-        <div class="rounded-lg border border-stone-200 bg-surface px-4 py-4 font-medium text-dark">
+        <span class="flex items-center gap-2 text-sm font-medium text-brand-muted">
+          <i class="ph ph-circle-fill text-[6px] text-primary" aria-hidden="true"></i>
           {{ category }}
-        </div>
+        </span>
+      }
+    </div>
+    <div class="marquee-track flex shrink-0 items-center gap-8 pr-8" aria-hidden="true">
+      @for (category of categories; track category) {
+        <span class="flex items-center gap-2 text-sm font-medium text-brand-muted">
+          <i class="ph ph-circle-fill text-[6px] text-primary" aria-hidden="true"></i>
+          {{ category }}
+        </span>
       }
     </div>
   </div>
@@ -52,8 +78,10 @@
 
 <section class="bg-white">
   <div class="mx-auto max-w-7xl px-6 py-16 md:py-24">
-    <h2 class="text-3xl font-bold tracking-tighter text-brand">Productos destacados</h2>
-    <p class="mt-3 max-w-[65ch] text-brand-muted">
+    <h2 class="max-w-2xl text-3xl font-bold tracking-tighter text-dark md:text-4xl">
+      Productos destacados
+    </h2>
+    <p class="mt-3 max-w-[52ch] text-brand-muted">
       Algunos de los productos que ya están disponibles para alquilar.
     </p>
 
@@ -71,14 +99,14 @@
         }
       </div>
     } @else if (error()) {
-      <p class="mt-10 max-w-[65ch] text-brand-muted">
+      <p class="mt-10 max-w-[52ch] text-brand-muted">
         No pudimos cargar los productos en este momento. Volvé a intentar más tarde.
       </p>
     } @else {
       <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         @for (product of products().slice(0, 6); track product.id) {
           <article
-            class="overflow-hidden rounded-2xl border border-stone-200/70 bg-surface transition hover:-translate-y-1 hover:shadow-md"
+            class="overflow-hidden rounded-2xl border border-stone-200/70 bg-surface shadow-soft transition hover:-translate-y-1 hover:shadow-lifted"
           >
             <img
               [src]="primaryPhoto(product) ?? ''"
@@ -92,7 +120,10 @@
               </p>
               <h3 class="mt-1 text-lg font-semibold text-dark">{{ product.title }}</h3>
               @if (product.ratingCount > 0) {
-                <p class="mt-1 text-sm text-brand-muted">★ {{ product.ratingAvg }}</p>
+                <p class="mt-1 text-sm text-brand-muted">
+                  <i class="ph ph-star-fill text-primary" aria-hidden="true"></i>
+                  {{ product.ratingAvg }}
+                </p>
               }
               <p class="mt-3 text-xl font-bold text-brand">
                 {{ formatPrice(product.priceDay) }}
@@ -108,71 +139,118 @@
 
 <section class="bg-surface">
   <div class="mx-auto max-w-7xl px-6 py-16 md:py-24">
-    <h2 class="text-3xl font-bold tracking-tighter text-brand">Así funciona</h2>
-    <p class="mt-3 max-w-[65ch] text-brand-muted">
-      Un solo lugar para alquilar lo que te falta y publicar lo que no usás.
-    </p>
-
-    <div class="mt-12 grid gap-6 md:grid-cols-2">
-      <div class="rounded-xl border border-stone-200/70 bg-white p-6">
-        <h3 class="text-lg font-semibold text-dark">Para alquilar</h3>
-        <ul class="mt-4 flex flex-col gap-4">
-          <li>
-            <p class="font-medium text-dark">Buscá por categoría</p>
-            <p class="mt-0.5 text-sm text-brand-muted">
-              Encontrá lo que necesitás cerca tuyo, de autos a herramientas.
-            </p>
-          </li>
-          <li>
-            <p class="font-medium text-dark">Elegí tu plazo</p>
-            <p class="mt-0.5 text-sm text-brand-muted">
-              Alquilá por día, semana o mes, el tiempo que te sirva.
-            </p>
-          </li>
-          <li>
-            <p class="font-medium text-dark">Coordiná y aboná</p>
-            <p class="mt-0.5 text-sm text-brand-muted">
-              Acordá el encuentro con el dueño y aboná de forma simple.
-            </p>
-          </li>
-        </ul>
+    <div class="grid gap-12 md:grid-cols-[1fr_1.4fr] md:gap-16">
+      <div>
+        <h2 class="text-3xl font-bold tracking-tighter text-dark md:text-4xl">
+          Así funciona
+        </h2>
+        <p class="mt-3 max-w-[52ch] text-brand-muted">
+          Un solo lugar para alquilar lo que te falta y publicar lo que no usás.
+        </p>
       </div>
 
-      <div class="rounded-xl border border-stone-200/70 bg-white p-6">
-        <h3 class="text-lg font-semibold text-dark">Para publicar</h3>
-        <ul class="mt-4 flex flex-col gap-4">
-          <li>
-            <p class="font-medium text-dark">Publicá tu aviso</p>
-            <p class="mt-0.5 text-sm text-brand-muted">
-              Subí fotos, precio y disponibilidad en minutos.
-            </p>
-          </li>
-          <li>
-            <p class="font-medium text-dark">Definí precio y plazo</p>
-            <p class="mt-0.5 text-sm text-brand-muted">
-              Tarifas por día, semana o mes, como prefieras.
-            </p>
-          </li>
-          <li>
-            <p class="font-medium text-dark">Coordiná y cobrá</p>
-            <p class="mt-0.5 text-sm text-brand-muted">
-              Organizá la entrega con el inquilino y cobrá.
-            </p>
-          </li>
-        </ul>
+      <div class="divide-y divide-stone-300/70">
+        <div class="flex flex-col gap-2 py-6 first:pt-0 md:flex-row md:items-baseline md:gap-6">
+          <p class="w-16 shrink-0 text-sm font-semibold text-primary-text">Para alquilar</p>
+          <div class="flex flex-col gap-3">
+            <div class="flex items-start gap-3">
+              <span
+                class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-dark"
+                >1</span
+              >
+              <div>
+                <p class="font-semibold text-dark">Buscá por categoría</p>
+                <p class="mt-0.5 text-sm text-brand-muted">
+                  Encontrá lo que necesitás cerca tuyo, de autos a herramientas.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span
+                class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-dark"
+                >2</span
+              >
+              <div>
+                <p class="font-semibold text-dark">Elegí tu plazo</p>
+                <p class="mt-0.5 text-sm text-brand-muted">
+                  Alquilá por día, semana o mes, el tiempo que te sirva.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span
+                class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-dark"
+                >3</span
+              >
+              <div>
+                <p class="font-semibold text-dark">Coordiná y aboná</p>
+                <p class="mt-0.5 text-sm text-brand-muted">
+                  Acordá el encuentro con el dueño y aboná de forma simple.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2 py-6 md:flex-row md:items-baseline md:gap-6">
+          <p class="w-16 shrink-0 text-sm font-semibold text-primary-text">Para publicar</p>
+          <div class="flex flex-col gap-3">
+            <div class="flex items-start gap-3">
+              <span
+                class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-dark"
+                >1</span
+              >
+              <div>
+                <p class="font-semibold text-dark">Publicá tu aviso</p>
+                <p class="mt-0.5 text-sm text-brand-muted">
+                  Subí fotos, precio y disponibilidad en minutos.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span
+                class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-dark"
+                >2</span
+              >
+              <div>
+                <p class="font-semibold text-dark">Definí precio y plazo</p>
+                <p class="mt-0.5 text-sm text-brand-muted">
+                  Tarifas por día, semana o mes, como prefieras.
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <span
+                class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-dark"
+                >3</span
+              >
+              <div>
+                <p class="font-semibold text-dark">Coordiná y cobrá</p>
+                <p class="mt-0.5 text-sm text-brand-muted">
+                  Organizá la entrega con el inquilino y cobrá.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="bg-primary">
-  <div class="mx-auto flex max-w-7xl flex-col items-center gap-6 px-6 py-16 text-center md:py-20">
-    <h2 class="text-3xl font-bold tracking-tighter text-brand">¿Listo para alquilar o publicar?</h2>
+<section class="bg-brand">
+  <div class="mx-auto flex max-w-7xl flex-col items-center gap-6 px-6 py-16 text-center md:py-24">
+    <h2 class="max-w-2xl text-3xl font-bold tracking-tighter text-white md:text-4xl">
+      ¿Listo para alquilar o publicar?
+    </h2>
+    <p class="max-w-[52ch] text-white/70">
+      Sumate a la comunidad y empezá a darle uso a lo que ya tenés.
+    </p>
     <a
       routerLink="/register"
-      class="cursor-pointer rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-muted active:scale-[0.98]"
+      class="mt-2 cursor-pointer rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-dark shadow-soft transition hover:bg-primary-hover hover:shadow-lifted active:scale-[0.98]"
     >
-      Registrarse
+      Registrarse gratis
     </a>
   </div>
 </section>
