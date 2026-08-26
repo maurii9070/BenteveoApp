@@ -21,8 +21,6 @@ export class SessionService {
 
   setUser(user: SessionUser): void {
     this.userSignal.set(user);
-    console.log(user);
-
   }
 
   clearSession(): void {
